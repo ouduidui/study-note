@@ -1,0 +1,20 @@
+{
+  "name": "study-note",
+  "version": "1.0.0",
+  "description": "implement the test case or demo when I read the documents or books",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ouduidui/study-note.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ouduidui/study-note/issues"
+  },
+  "homepage": "https://github.com/ouduidui/study-note#readme"
+}
