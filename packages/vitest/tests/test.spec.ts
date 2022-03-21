@@ -19,6 +19,24 @@ describe('suite', () => {
     expect(Math.sqrt(4)).toBe(2)
   })
 
-  test.concurrent('concurrent test 1', async() => { expect(Math.sqrt(4)).toBe(2) })
-  test.concurrent('concurrent test 2', async() => { expect(Math.sqrt(4)).toBe(2) })
+  test.concurrent('concurrent test 1', async(done) => {
+    setTimeout(() => {
+      expect(Math.sqrt(4)).toBe(2)
+      done()
+    })
+  })
+  test.concurrent('concurrent test 2', async(done) => {
+    Promise.resolve().then(() => {
+      expect(Math.sqrt(4)).toBe(2)
+      done()
+    })
+  })
+})
+
+// An entry will be shown in the report for this test
+test.todo('unimplemented test')
+
+const myAsyncFunc = () => Promise.resolve(1)
+test.fails('fail test', () => {
+  expect(myAsyncFunc()).rejects.toBe(1)
 })

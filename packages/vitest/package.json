@@ -7,7 +7,9 @@
   "author": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest -w "
+    "dev": "vitest -w",
+    "dev:test": "pnpm dev -r tests/test.spec.ts",
+    "dev:describe": "pnpm dev -r tests/describe.spec.ts"
   },
   "devDependencies": {
     "vitest": "^0.7.6"
