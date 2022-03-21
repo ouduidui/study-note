@@ -1,0 +1,15 @@
+{
+  "name": "vitest",
+  "version": "1.0.0",
+  "description": "> https://vitest.dev/",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest -w "
+  },
+  "devDependencies": {
+    "vitest": "^0.7.6"
+  }
+}
