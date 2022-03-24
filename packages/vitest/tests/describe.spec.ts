@@ -1,11 +1,10 @@
 import { assert, describe, expect, test } from 'vitest'
 
-const person = {
-  isActive: true,
-  age: 32,
-}
-
-describe('person', () => {
+describe('use describe you can define a new suite in the current context', () => {
+  const person = {
+    isActive: true,
+    age: 32,
+  }
   test('person is defined', () => {
     expect(person).toBeDefined()
   })
@@ -19,14 +18,14 @@ describe('person', () => {
   })
 })
 
-const numberToCurrency = (value) => {
-  if (typeof value !== 'number')
-    throw new Error('Value must be a number')
+describe('you can also nest describe blocks if you have a hierarchy of tests', () => {
+  const numberToCurrency = (value) => {
+    if (typeof value !== 'number')
+      throw new Error('Value must be a number')
 
-  return value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
+    return value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
 
-describe('numberToCurrency', () => {
   describe('given an invalid number', () => {
     test('composed of non-numbers to throw error', () => {
       expect(() => numberToCurrency('abc')).toThrow()
@@ -53,7 +52,7 @@ describe.skip('skipped suite', () => {
 //   })
 // })
 
-describe.concurrent('suite', () => {
+describe.concurrent('describe.concurrent in a suite marks every tests as concurrent', () => {
   test('concurrent test 1', async(done) => {
     setTimeout(() => {
       expect(Math.sqrt(4)).toBe(2)

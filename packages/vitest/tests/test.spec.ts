@@ -14,7 +14,7 @@ test.skip('skipped test', () => {
 //   assert.equal(Math.sqrt(4), 2)
 // })
 
-describe('suite', () => {
+describe('test.concurrent', () => {
   test('serial test', async() => {
     expect(Math.sqrt(4)).toBe(2)
   })
@@ -36,7 +36,6 @@ describe('suite', () => {
 // An entry will be shown in the report for this test
 test.todo('unimplemented test')
 
-const myAsyncFunc = () => Promise.resolve(1)
 test.fails('fail test', () => {
-  expect(myAsyncFunc()).rejects.toBe(1)
+  expect(Math.sqrt(4)).toBe(3)
 })
