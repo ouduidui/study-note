@@ -39,3 +39,13 @@ test.todo('unimplemented test')
 test.fails('fail test', () => {
   expect(Math.sqrt(4)).toBe(3)
 })
+
+describe('Use test.each when you need to run the same test with different variables', () => {
+  test.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+  ])('add(%i, %i) -> %i', (a, b, expected) => {
+    expect(a + b).toBe(expected)
+  })
+})

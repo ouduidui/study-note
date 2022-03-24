@@ -73,5 +73,26 @@ describe.concurrent('describe.concurrent in a suite marks every tests as concurr
   })
 })
 
-// An entry will be shown in the report for this suite
-describe.todo('unimplemented suite')
+describe('An entry will be shown in the report for this suite', () => {
+  describe.todo('unimplemented suite')
+})
+
+describe('Use describe.each if you have more than one test that depends on the same data.', () => {
+  describe.each([
+    { a: 1, b: 1, expected: 2 },
+    { a: 1, b: 2, expected: 3 },
+    { a: 2, b: 1, expected: 3 },
+  ])('describe object add(%i, %i)', ({ a, b, expected }) => {
+    test(`returns ${expected}`, () => {
+      expect(a + b).toBe(expected)
+    })
+
+    test(`returned value not be greater than ${expected}`, () => {
+      expect(a + b).not.toBeGreaterThan(expected)
+    })
+
+    test(`returned value not be less than ${expected}`, () => {
+      expect(a + b).not.toBeLessThan(expected)
+    })
+  })
+})
