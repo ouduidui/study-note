@@ -224,3 +224,108 @@ describe('toContain', () => {
     expect('abcdefg').toContain('a')
   })
 })
+
+describe('toContainEqual', () => {
+  test('toContainEqual asserts if an item with a specific structure and values is contained in an array', () => {
+    expect([{ a: 1 }, { a: 2 }]).toContainEqual({ a: 1 })
+    expect([{ a: 1 }, { a: 2 }]).toContainEqual({ a: 2 })
+  })
+})
+
+describe('toHaveLength', () => {
+  test('toHaveLength asserts if an object has a .length property and it is set to a certain numeric value', () => {
+    expect('abc').toHaveLength(3)
+    expect([1, 2, 3]).toHaveLength(3)
+    expect([]).toHaveLength(0)
+    expect({ length: 3 }).toHaveLength(3)
+  })
+})
+
+describe('toHaveProperty', () => {
+  test('toHaveProperty asserts if a property at provide reference key exists for an object', () => {
+    const obj = { a: 1, b: { c: 2 } }
+    expect(obj).toHaveProperty('a')
+    expect(obj).toHaveProperty('b.c')
+  })
+
+  test('you can provide an optional value argument also known as deep equality, like the toEqual matcher to compare the received property value', () => {
+    const obj = { a: 1, b: { c: 2 } }
+    expect(obj).toHaveProperty('a', 1)
+    expect(obj).toHaveProperty('b', { c: 2 })
+    expect(obj).toHaveProperty('b.c', 2)
+  })
+})
+
+describe('toMatch', () => {
+  test('toMatch asserts if a string matches a regular expression or a string', () => {
+    expect('abc').toMatch('a')
+    expect('abc').toMatch(/^a*./)
+    expect('abc').not.toMatch(/\*.b$/)
+  })
+})
+
+describe('toMatchObject', () => {
+  test('toMatchObject asserts if an object matches a subset of the properties of an object', () => {
+    expect({ a: 1, b: 2 }).toMatchObject({ a: 1 })
+    expect({ a: 1, b: 2 }).toMatchObject({ a: 1, b: 2 })
+  })
+
+  test('you can also pass an array of objects. this is useful if you want to check that two arrays matchin their number of elements.', () => {
+    expect([{ foo: 'baz', bar: 'baz' }, { baz: 1 }]).toMatchObject([{ foo: 'baz' }, { baz: 1 }])
+  })
+})
+
+describe('toThrowError', () => {
+  test('toThrowError assets if a function throws an error when it is called', () => {
+    expect(() => {
+      throw new Error('error')
+    }).toThrowError()
+  })
+
+  test('you can provide an optional argument to test a specific error is thrown', () => {
+    expect(() => {
+      throw new Error('error')
+    }).toThrowError('error')
+
+    expect(() => {
+      throw new Error('error')
+    }).toThrowError(/^e*./)
+  })
+})
+
+describe('resolve', () => {
+  test('use it to unwrap value from pending preomise and assert its value with usual assetions', async() => {
+    const p = Promise.resolve({ foo: 1 })
+    await expect(p).resolves.toEqual({ foo: 1 })
+  })
+})
+
+describe('reject', () => {
+  test('use it to unwrap reason why promise war rejected, and assert its value with usual assertions', async() => {
+    // eslint-disable-next-line prefer-promise-reject-errors
+    const p = Promise.reject({ foo: 1 })
+    await expect(p).rejects.toEqual({ foo: 1 })
+  })
+})
+
+describe('assertions', () => {
+  test('after the test has passed or failed verifies that curtain number of assertions was called during a test', async() => {
+    expect.assertions(3)
+    await Promise.all([
+      expect(1).toBe(1),
+      expect(1).toBe(1),
+      expect(1).toBe(1),
+    ])
+  })
+})
+
+describe('hasAssertions', () => {
+  test('After the test has passed or failed verifies that at least one assertion was called during a test', () => {
+    expect.hasAssertions()
+    expect(1).toBe(1)
+  })
+
+  test.fails('not has assertions', () => {
+    expect.hasAssertions()
+  })
+})
