@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 
 describe('toBe', () => {
   const stock = {
@@ -290,6 +290,148 @@ describe('toThrowError', () => {
     expect(() => {
       throw new Error('error')
     }).toThrowError(/^e*./)
+  })
+})
+
+describe('toHaveBeenCalled', () => {
+  const obj = {
+    saySomething(msg: string) {
+      return msg
+    },
+  }
+
+  test('this assertion is useful for testing that a function has been called', () => {
+    const objSpy = vi.spyOn(obj, 'saySomething')
+    expect(objSpy).not.toHaveBeenCalled()
+    obj.saySomething('hello')
+    expect(objSpy).toHaveBeenCalled()
+  })
+})
+
+describe('toHaveBeenCalledTimes', () => {
+  const obj = {
+    saySomething(msg: string) {
+      return msg
+    },
+  }
+
+  test('this assertion checks if a function was called a certain amount of times', () => {
+    const objSpy = vi.spyOn(obj, 'saySomething')
+    expect(objSpy).toHaveBeenCalledTimes(0)
+    obj.saySomething('hello')
+    expect(objSpy).toHaveBeenCalledTimes(1)
+    obj.saySomething('hello')
+    expect(objSpy).toHaveBeenCalledTimes(2)
+    expect(objSpy).toHaveBeenCalledTimes(2)
+  })
+})
+
+describe('toHaveBeenCalledWith', () => {
+  const obj = {
+    saySomething(msg: string) {
+      return msg
+    },
+  }
+
+  test('this assertion checks if a function was called at least once with a certain parameters', () => {
+    const objSpy = vi.spyOn(obj, 'saySomething')
+    obj.saySomething('hi')
+    expect(objSpy).toHaveBeenCalledWith('hi')
+    obj.saySomething('hello')
+    expect(objSpy).toHaveBeenCalledWith('hello')
+    expect(objSpy).toHaveBeenCalledWith('hi')
+  })
+})
+
+describe('toHaveBeenLastCalledWith', () => {
+  const obj = {
+    saySomething(msg: string) {
+      return msg
+    },
+  }
+
+  test('this assertion checks if a function was called with certain parameters at it\'s last invocation', () => {
+    const objSpy = vi.spyOn(obj, 'saySomething')
+    obj.saySomething('hi')
+    expect(objSpy).toHaveBeenLastCalledWith('hi')
+    obj.saySomething('hello')
+    expect(objSpy).toHaveBeenLastCalledWith('hello')
+    expect(objSpy).not.toHaveBeenLastCalledWith('hi')
+  })
+})
+
+describe('toHaveBeenNthCalledWith', () => {
+  const obj = {
+    saySomething(msg: string) {
+      return msg
+    },
+  }
+
+  test('this assertion checks if a function was called with certain parameters at the certain time', () => {
+    const objSpy = vi.spyOn(obj, 'saySomething')
+    obj.saySomething('hi')
+    obj.saySomething('hello')
+    expect(objSpy).toHaveBeenNthCalledWith(1, 'hi')
+    expect(objSpy).toHaveBeenNthCalledWith(2, 'hello')
+  })
+})
+
+describe('toHaveReturned', () => {
+  const obj = {
+    saySomething(msg: string) {
+      return msg
+    },
+  }
+
+  test('this assertion checks if a function has successfully returned a value at least once', () => {
+    const objSpy = vi.spyOn(obj, 'saySomething')
+    expect(obj.saySomething('hi')).toBe('hi')
+    expect(objSpy).toHaveReturned()
+  })
+})
+
+describe('toHaveReturnedWith', () => {
+  const obj = {
+    saySomething(msg: string) {
+      return `hi, ${msg}`
+    },
+  }
+
+  test('this assertion checks if a function has successfully returned a value with certain parameters at least once', () => {
+    const objSpy = vi.spyOn(obj, 'saySomething')
+    obj.saySomething('world')
+    expect(objSpy).toHaveReturnedWith('hi, world')
+  })
+})
+
+describe('toHaveLastReturnWith', () => {
+  const obj = {
+    saySomething(msg: string) {
+      return `hi, ${msg}`
+    },
+  }
+
+  test('this assertion to check if a function has successfully returned a value with certain parameters on it\'s last invoking', () => {
+    const objSpy = vi.spyOn(obj, 'saySomething')
+    obj.saySomething('dewey')
+    obj.saySomething('world')
+    expect(objSpy).toHaveReturnedWith('hi, world')
+  })
+})
+
+describe('toHaveNthReturnedWith', () => {
+  const obj = {
+    saySomething(msg: string) {
+      return `hi, ${msg}`
+    },
+  }
+
+  test('this assertion to check if a function has successfully returned a value with certain parameters on a certain call', () => {
+    const objSpy = vi.spyOn(obj, 'saySomething')
+    obj.saySomething('dewey')
+    obj.saySomething('world')
+    expect(objSpy).toHaveNthReturnedWith(1, 'hi, dewey')
+    expect(objSpy).toHaveNthReturnedWith(2, 'hi, world')
   })
 })
 

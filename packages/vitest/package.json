@@ -7,12 +7,12 @@
   "author": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vitest -w",
-    "dev:test": "pnpm dev -r tests/test.spec.ts",
-    "dev:describe": "pnpm dev -r tests/describe.spec.ts",
-    "dev:expect": "pnpm dev -r tests/expect.spec.ts"
+    "test": "vitest -w",
+    "test:test": "pnpm test -r tests/test.spec.ts",
+    "test:describe": "pnpm test -r tests/describe.spec.ts",
+    "test:expect": "pnpm test -r tests/expect.spec.ts"
   },
   "devDependencies": {
-    "vitest": "^0.7.6"
+    "vitest": "^0.7.12"
   }
 }
